@@ -34,14 +34,14 @@ int i;
 int code_val = 0;
 char **progr_dirs;
 
-if (!info->program_name)
+if (!info->progr_name)
 return 2;
 
-if (info->program_name[0] == '/' || info->program_name[0] == '.')
-return inspect_file(info->program_name);
+if (info->progr_name[0] == '/' || info->progr_name[0] == '.')
+return inspect_file(info->progr_name);
 
 free(info->token_arr[0]);
-info->token_arr[0] = str_concat(str_dup("/"), info->program_name);
+info->token_arr[0] = str_concat(str_dup("/"), info->progr_name);
 if (!info->token_arr[0])
 return 2;
 

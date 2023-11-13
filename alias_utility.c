@@ -26,10 +26,10 @@ if (info->alias_values[index][char_index] == '=')
 break;
 }
 buffer[char_index + 1] = '\0';
-buffer_add(buffer, "'");
-buffer_add(buffer, info->alias_values[index] + char_index + 1);
-buffer_add(buffer, "'\n");
-_print(buffer);
+alias_append(buffer, "'");
+alias_append(buffer, info->alias_values[index] + char_index + 1);
+alias_append(buffer, "'\n");
+_imprimit(buffer);
 }
 }
 }
