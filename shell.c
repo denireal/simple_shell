@@ -1,31 +1,4 @@
 #include "shell.h"
-/**
-* main - Entry point, initializes program variables
-* @argc: Number of command line arguments
-* @argv: Array of command line argument values
-* @env: Array of environment variable values
-*
-* Return: 0.
-*/
-
-int main(int argc, char *argv[], char *env_cpy[])
-{
-progr_info struct_info = {NULL}, *data = &struct_info;
-char *tx_prompt = "";
-
-initialize_struct(info, argc, argv, env);
-
-signal(SIGINT, tx_newline);
-
-if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
-{
-errno = 2;
-tx_prompt = PROMPT_MSG;
-}
-errno = 0;
-show_prompt(tx_prompt, info);
-return (0);
-}
 
 /**
 * tx_newline - Prints the prompt in a new line when sig is gotten
@@ -46,7 +19,8 @@ _imprimit(PROMPT_MSG);
 * @argc: Number of args received from the command line
 */
 
-void initialize_struct(progr_info *info, int argc, char *argv[], char **env_cpy)
+void initialize_struct(progr_info *info, int argc, char *argv[],
+		char **env_cpy)
 {
 int i = 0;
 
@@ -87,12 +61,39 @@ for (i = 0; i < 20; i++)
 info->alias_values[i] = NULL;
 }
 }
+
+/**
+* main - Entry point, initializes program variables
+* @argc: Number of command line arguments
+* @argv: Array of command line argument values
+* @env_cpy: Array of environment variable values
+*
+* Return: 0.
+*/
+int main(int argc, char *argv[], char *env_cpy[])
+{
+progr_info struct_info = {NULL}, *info = &struct_info;
+char *tx_prompt = "";
+
+initialize_struct(info, argc, argv, env_cpy);
+
+signal(SIGINT, tx_newline);
+
+if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
+{
+errno = 2;
+tx_prompt = PROMPT_MSG;
+}
+errno = 0;
+show_prompt(tx_prompt, info);
+return (0);
+}
+
 /**
 * show_prompt - Displays the prompt in an infinite loop
 * @tx_prompt: Prompt to be printed
 * @info: Info relevant to the infinite loop
 */
-
 void show_prompt(char *tx_prompt, progr_info *info)
 {
 int code_err = 0, string_len = 0;

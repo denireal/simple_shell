@@ -16,7 +16,7 @@ long number = num;
 char alphanumeric[] = {"0123456789abcdef"};
 
 if (number == 0)
-buff_string[index++] = '0';
+buff_string[ind++] = '0';
 
 if (buff_string[0] == '-')
 val = 1;
@@ -24,16 +24,16 @@ val = 1;
 while (number)
 {
 if (number < 0)
-buff_string[index++] = alphanumeric[-(number % base_num)];
+buff_string[ind++] = alphanumeric[-(number % base_num)];
 else
-buff_string[index++] = alphanumeric[number % base_num];
+buff_string[ind++] = alphanumeric[number % base_num];
 number /= base_num;
 }
 if (val)
-buff_string[index++] = '-';
+buff_string[ind++] = '-';
 
-buff_string[index] = '\0';
-str_reverse(string);
+buff_string[ind] = '\0';
+str_reverse(s);
 }
 
 /**
@@ -42,24 +42,24 @@ str_reverse(string);
 * @str: pointer to str origin.
 * Return: int of string or 0.
 */
-int _atoi(char *str)
+int _atoi(char *s)
 {
 int signal = 1;
 unsigned int a = 0;
 /*1- analisys sign*/
 while (!('0' <= *s && *s <= '9') && *s != '\0')
 {
-if (*str == '-')
+if (*s == '-')
 signal *= -1;
-if (*str == '+')
+if (*s == '+')
 signal *= +1;
 s++;
 }
-while ('0' <= *s && *str <= '9' && *str != '\0')
+while ('0' <= *s && *s <= '9' && *s != '\0')
 {
 
-a = (a * 10) + (*str - '0');
-str++;
+a = (a * 10) + (*s - '0');
+s++;
 }
 return (a * signal);
 }
