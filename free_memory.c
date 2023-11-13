@@ -41,7 +41,7 @@ mem_dealloc_array(info->alias_values);
 * @array_ptr: An array of pointers
 * Return: void
 */
-void mem_dealloc_array(char **array_ptrv)
+void mem_dealloc_array(char **array_ptr)
 {
 int ind;
 
