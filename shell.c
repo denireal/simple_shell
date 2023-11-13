@@ -112,7 +112,7 @@ if (string_len >= 1)
 {
 alias_exps(info);
 var_exps(info);
-tx_parser(info);
+tx_tokenizer(info);
 if (info->token_arr[0])
 {
 code_err = execute(info);

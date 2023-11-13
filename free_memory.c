@@ -51,6 +51,6 @@ for (ind = 0; array_ptr[ind]; ind++)
 free(array_ptr[ind]);
 
 free(array_ptr);
-array = NULL;
+array_ptr = NULL;
 }
 }

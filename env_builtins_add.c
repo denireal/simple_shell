@@ -32,7 +32,7 @@ exit(errno);
 */
 int cdir_builtin(progr_info *info)
 {
-char *home_dir = getenv_key("HOME", info), *prev_dir = NULL;
+char *home_dir = getenv_key("HOME", info), *O_dir = NULL;
 char prev_dir[128] = {0};
 int error_code = 0;
 
@@ -40,9 +40,9 @@ if (info->token_arr[1])
 {
 if (str_compare(info->token_arr[1], "-", 0))
 {
-prev_dir = getenv_key("OLDPWD", info);
-if (prev_dir)
-error_code = present_directory(info, prev_dir);
+O_dir = getenv_key("OLDPWD", info);
+if (O_dir)
+error_code = present_directory(info, O_dir);
 _imprimit(getenv_key("PWD", info));
 _imprimit("\n");
 
@@ -119,7 +119,7 @@ nuntius[3] = HELP_SETENV_MSG;
 nuntius[4] = HELP_UNSETENV_MSG;
 nuntius[5] = HELP_CD_MSG;
 
-for (ind = 0; nuntius[ind]; i++)
+for (ind = 0; nuntius[ind]; ind++)
 {
 length = str_length(info->token_arr[1]);
 if (str_compare(info->token_arr[1], nuntius[ind], length))
@@ -145,7 +145,7 @@ int ind = 0;
 if (info->token_arr[1] == NULL)
 return (write_alias(info, NULL));
 
-while (info->token_arr[++i])
+while (info->token_arr[++ind])
 {
 if (count_characters(info->token_arr[ind], "="))
 manage_alias(info->token_arr[ind], info);

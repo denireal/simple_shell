@@ -13,6 +13,8 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
+#include "helpers.h"
+
 /* ======= Handling structures ======= */
 /**
 * struct info- struct for the program's information

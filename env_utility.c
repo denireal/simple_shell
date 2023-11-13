@@ -10,17 +10,17 @@ char *getenv_key(char *env_var, progr_info *info)
 {
 int i, env_var_len = 0;
 
-if (env_var == NULL || info->env == NULL)
+if (env_var == NULL || info->env_cpy == NULL)
 return (NULL);
 
 env_var_len = str_length(env_var);
 
-for (i = 0; info->env[i]; i++)
+for (i = 0; info->env_cpy[i]; i++)
 {
-if (str_compare(env_var, info->env_var[i], env_var_len) &&
-info->env_var[i][env_var_len] == '=')
+if (str_compare(env_var, info->env_cpy[i], env_var_len) &&
+info->env_cpy[i][env_var_len] == '=')
 {
-return (info->env_var[i] + env_var_len + 1);
+return (info->env_cpy[i] + env_var_len + 1);
 }
 }
 return (NULL);
@@ -53,7 +53,7 @@ info->env_cpy[i][env_var_len] == '=')
 
 new_env_var = 0;
 
-free(data->env_cpy[i]);
+free(info->env_cpy[i]);
 break;
 }
 }

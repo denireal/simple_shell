@@ -43,7 +43,7 @@ return (NULL);
 }
 for (; ind < length ; ind++)
 {
-val[i] = s[ind];
+val[ind] = s[ind];
 }
 
 return (val);
@@ -66,7 +66,7 @@ return (1);
 if (first_str == NULL || second_str == NULL)
 return (0);
 
-if (number == 0)
+if (number_char == 0)
 {
 if (str_length(first_str) != str_length(second_str))
 return (0);
@@ -118,13 +118,13 @@ return (NULL);
 
 /* copy of string1 */
 for (first_len = 0; first_str[first_len] != '\0'; first_len++)
-result[first_len] = first_str[first_len];
+val[first_len] = first_str[first_len];
 free(first_str);
 
 /* copy of string2 */
 for (second_len = 0; second_str[second_len] != '\0'; second_len++)
 {
-result[first_len] = second_str[second_len];
+val[first_len] = second_str[second_len];
 first_len++;
 }
 

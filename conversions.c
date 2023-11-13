@@ -33,7 +33,7 @@ if (val)
 buff_string[ind++] = '-';
 
 buff_string[ind] = '\0';
-str_reverse(s);
+str_reverse(buff_string);
 }
 
 /**

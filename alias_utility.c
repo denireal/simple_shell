@@ -16,7 +16,8 @@ if (info->alias_values)
 alias_length = str_length(alias_name);
 for (index = 0; info->alias_values[index]; index++)
 {
-if (!alias_name || (str_compare(info->alias_values[index], alias_name, alias_length)
+if (!alias_name || (str_compare(info->alias_values[index], alias_name,
+				alias_length)
 &&	info->alias_values[index][alias_length] == '='))
 {
 for (char_index = 0; info->alias_values[index][char_index]; char_index++)
@@ -100,8 +101,8 @@ break;
 
 if (tempval)
 {
-buffer_add(buffer, "=");
-buffer_add(buffer, tempval);
+alias_append(buffer, "=");
+alias_append(buffer, tempval);
 info->alias_values[index] = str_dup(buffer);
 }
 else

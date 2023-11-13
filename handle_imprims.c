@@ -2,7 +2,7 @@
 
 /**
  * _imprimit - This prints an array of chars in the stdout
- * @string: pointer to the array of chars
+ * @char_arr: pointer to the array of chars
  * Returns the count of written bytes or -1 on error,
  * with the error code set in the errno variable.
  */
@@ -12,11 +12,11 @@ int _imprimit(char *char_arr)
 }
 /**
  * _imprimo - This prints an array of chars in the stderr
- * @string: pointer to the array of chars
+ * @char_arr: pointer to the array of chars
  * Returns the count of written bytes or -1 on error,
  * with the error code set in the errno variable.
  */
-int _imprimo(char *string)
+int _imprimo(char *char_arr)
 {
 	return (write(STDERR_FILENO, char_arr, str_length(char_arr)));
 }
