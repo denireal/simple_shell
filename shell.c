@@ -62,10 +62,10 @@ else
 info->fd = open(argv[1], O_RDONLY);
 if (info->fd == -1)
 {
-_imprimo(info->progr_name);
-_imprimo(": 0: Can't open ");
-_imprimo(argv[1]);
-_imprimo("\n");
+_imprimit(info->progr_name);
+_imprimit(": 0: Can't open ");
+_imprimit(argv[1]);
+_imprimit("\n");
 exit(127);
 }
 }

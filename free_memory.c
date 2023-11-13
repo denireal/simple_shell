@@ -7,8 +7,8 @@
 */
 void mem_dealloc_data(progr_info *info)
 {
-if (info->tokens)
-mem_dealloc_array(info->token-arr);
+if (info->token_arr)
+mem_dealloc_array(info->token_arr);
 if (info->input_line)
 free(info->input_line);
 if (info->the_cmd)

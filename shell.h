@@ -30,7 +30,7 @@ typedef struct shell_info
 char *progr_name;
 char *input_line;
 char *the_cmd;
-int exeution_ctr;
+int execution_ctr;
 int fd;
 char **token_arr;
 char **env_cpy;
@@ -187,7 +187,7 @@ int execute(progr_info *info);
 * @info: The program's data structure.
 * Return: A pointer to the value of the variable or NULL if it doesn't exist.
 */
-char *getenv_key(char *env_var, info *info);
+char *getenv_key(char *env_var, progr_info *info);
 
 /**
 * setenv_key - Modifies the value of an environment variable,
@@ -369,4 +369,4 @@ char *fetch_alias(progr_info *info, char *alias_name);
 */
 int manage_alias(char *alias_string, progr_info *info);
 
-#endif /* SHELL_H_INCLUD
+#endif /* SHELL_H_INCLUDED */

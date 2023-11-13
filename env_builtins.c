@@ -33,7 +33,7 @@ _imprimit("\n");
 else
 {
 setenv_key(var_name, var_cpy, info);
-free(var_copy);
+free(var_cpy);
 }
 return (0);
 }

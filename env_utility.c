@@ -6,14 +6,14 @@
  * @info: The program's data structure.
  * Return: A pointer to the value of the variable or NULL if it doesn't exist.
  */
-char *getenv_key(char *env_var, info *info)
+char *getenv_key(char *env_var, progr_info *info)
 {
 int i, env_var_len = 0;
 
 if (env_var == NULL || info->env == NULL)
 return (NULL);
 
-env_var_len = str_length(key);
+env_var_len = str_length(env_var);
 
 for (i = 0; info->env[i]; i++)
 {

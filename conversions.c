@@ -8,7 +8,7 @@
 *
 * Return: Void.
 */
-void long_to_string(long num, char *buff_string, int base_num)
+void long_string(long num, char *buff_string, int base_num)
 {
 int ind = 0;
 int val = 0;
@@ -21,7 +21,7 @@ buff_string[index++] = '0';
 if (buff_string[0] == '-')
 val = 1;
 
-while (cociente)
+while (number)
 {
 if (number < 0)
 buff_string[index++] = alphanumeric[-(number % base_num)];
