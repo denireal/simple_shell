@@ -287,7 +287,7 @@ int unsetenv_var(progr_info *info);
 * @buff_string: buffer to save the number as string.
 * @base_num: base numbre to convert number
 */
-void long_to_string(long num, char *buff_string, int base_num);
+void long_string(long num, char *buff_string, int base_num);
 
 /**
 * _atoi - This convert string to an integer.

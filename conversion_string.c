@@ -125,7 +125,7 @@ free(first_str);
 for (second_len = 0; second_str[second_len] != '\0'; second_len++)
 {
 result[first_len] = second_str[second_len];
-length1++;
+first_len++;
 }
 
 val[first_len] = '\0';
@@ -148,7 +148,7 @@ char store;
 while (i < length)
 {
 store = s[i];
-string[i++] = s[length];
-string[length--] = store;
+s[i++] = s[length];
+s[length--] = store;
 }
 }

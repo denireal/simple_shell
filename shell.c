@@ -8,7 +8,7 @@
 * Return: 0.
 */
 
-int main(int argc, char *argv[], char *env[])
+int main(int argc, char *argv[], char *env_cpy[])
 {
 progr_info struct_info = {NULL}, *data = &struct_info;
 char *tx_prompt = "";
@@ -42,11 +42,11 @@ _imprimit(PROMPT_MSG);
 * initialize_struct - Initializes the program's info structure
 * @info: Pointer to the structure holding program info
 * @argv: Array of arguments passed to the program execution
-* @env: Environment passed to the program execution
+* @env_cpy: Environment passed to the program execution
 * @argc: Number of args received from the command line
 */
 
-void initialize_struct(progr_info *info, int argc, char *argv[], char **env)
+void initialize_struct(progr_info *info, int argc, char *argv[], char **env_cpy)
 {
 int i = 0;
 
@@ -63,23 +63,23 @@ info->fd = open(argv[1], O_RDONLY);
 if (info->fd == -1)
 {
 _imprimit(info->progr_name);
-_imprimit(": 0: Can't open ");
+_imprimit(": 0: Fail to open ");
 _imprimit(argv[1]);
 _imprimit("\n");
 exit(127);
 }
 }
 info->token_arr = NULL;
-info->env = malloc(sizeof(char *) * 50);
-if (env)
+info->env_cpy = malloc(sizeof(char *) * 50);
+if (env_cpy)
 {
-for (; env[i]; i++)
+for (; env_cpy[i]; i++)
 {
-info->env[i] = str_dup(env[i]);
+info->env_cpy[i] = str_dup(env_cpy[i]);
 }
 }
-info->env[i] = NULL;
-env = info->env;
+info->env_cpy[i] = NULL;
+env_cpy = info->env_cpy;
 
 info->alias_values = malloc(sizeof(char *) * 20);
 for (i = 0; i < 20; i++)
@@ -104,12 +104,12 @@ code_err = string_len = tx_getline(info);
 
 if (code_err == EOF)
 {
-free_all_data(info);
+dealloc_all_data(info);
 exit(errno);
 }
 if (string_len >= 1)
 {
-expand_alias(info);
+alias_exps(info);
 var_exps(info);
 tx_parser(info);
 if (info->token_arr[0])
