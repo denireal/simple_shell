@@ -32,7 +32,7 @@
 
 /* Help message for the "env" command */
 #define HELP_ENV_MSG "env=\n"\
-"env:\tenv \n\n"\
+"env_cpy:\tenv \n\n"\
 "	Prints the environment.\n\n"\
 "	This prints a comprehensive list of environment variables.\n\n"
 
