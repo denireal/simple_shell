@@ -138,4 +138,6 @@ char *fetch_alias(progr_info *info, char *alias_name);
 
 int manage_alias(char *alias_string, progr_info *info);
 
+int _imprimo(char *char_arr);
+
 #endif /* SHELL_H_INCLUDED */
