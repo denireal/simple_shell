@@ -1,7 +1,7 @@
 #ifndef HELPERS_H_INCLUDED
 #define HELPERS_H_INCLUDED
 
-#define PROMPT_MSG "TX$"
+#define PROMPT_MSG "TX-$_"
 #define UNUSED __attribute__((unused))
 #define BUFFER_SIZE 1024
 
@@ -13,7 +13,7 @@
 "	If BUILTIN_NAME is specified, it gives detailed help on all \n\n"\
 "	commands matching BUILTIN_NAME,\n"\
 "	Else, it prints a list of help topics for BUILTIN_NAME.\n"\
-" arguments:\n\n"\
+" 	arguments:\n\n"\
 "	cd\t[dir]\n"\
 "	exit\t[status]\n"\
 "	env_cpy\n"\
