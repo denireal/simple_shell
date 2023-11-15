@@ -5,7 +5,7 @@
 /**
 * tx_free_mem - Deallocate memory for a double pointer and its dynamically
 * created array of strings.
-* @argv: Double pointer to an array of strings created dynamically using malloc.
+* @argv: Double pointer to an array of strings created dynamically using malloc
 * @number: Number of strings in the array to be released.
 * Return: void
 */
@@ -51,7 +51,8 @@ pointers[2] = NULL;
 
 for (i = 0; i < num_pointers; i++)
 {
-if ((i == (unsigned int)is_dynamic_path || is_dynamic_path == -1) && pointers[i] != NULL)
+if ((i == (unsigned int)is_dynamic_path || is_dynamic_path == -1) &&
+		pointers[i] != NULL)
 {
 free(pointers[i]);
 }

@@ -60,7 +60,8 @@ env_path = strdup(env_path);
 if (!env_path)
 return (NULL);
 
-for (token_array = strtok(env_path, ":"); token_array; token_array = strtok(NULL, ":"))
+for (token_array = strtok(env_path, ":"); token_array;
+		token_array = strtok(NULL, ":"))
 {
 command_path = malloc(strlen(token_array) + strlen(command) + 2);
 if (!command_path)

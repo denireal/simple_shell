@@ -29,20 +29,20 @@ if (target[index] == NULL)
 {
 tx_show_error(3);
 tx_free_mem(target, index);
-return NULL;
+return (NULL);
 }
 
 tx_strcpy(target[index], current_var);
 index++;
 }
-
 target[index] = NULL;
 return (target);
 }
 
 /**
 * tx_getenv - Retrieves the value of a specific environment variable.
-* @string: Pointer to a string representing the name of the target environment variable.
+* @string: Pointer to a string representing the name of the target
+* environment variable.
 * Return: Value of the environment variable or NULL if not found.
 */
 char *tx_getenv(const char *string)
@@ -55,15 +55,12 @@ unsigned int value_size, env_size, string_size, index = 0;
 env_size = 0;
 while (environ[env_size] != NULL)
 env_size++;
-
 env_copy = tx_envcpy(env_copy, environ, env_size);
-
 string_size = tx_strlen(string);
 while (env_copy[index])
 {
 current_env = env_copy[index];
 comparison_result = tx_strncmp(string, current_env, string_size);
-
 if (comparison_result == 1)
 {
 current_value = strtok(current_env, "=");
@@ -74,7 +71,6 @@ if (current_value == NULL || *current_value == '\0')
 tx_show_error(4);
 exit(1);
 }
-
 value_size = tx_strlen(current_value);
 value = malloc(sizeof(char) * (value_size + 1));
 
@@ -83,14 +79,11 @@ if (!value)
 tx_show_error(3);
 return (NULL);
 }
-
 tx_strcpy(value, current_value);
 tx_free_mem(env_copy, env_size);
 return (value);
 }
-
 index++;
 }
-
 return (NULL);
 }
