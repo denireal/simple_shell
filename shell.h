@@ -35,7 +35,7 @@ extern char **environ;
 void tx_show_error(int err_code);
 char *tx_strcat(char *target, char *origin);
 char *tx_strdup(char *s);
-int tx_strlen(char *s);
+unsigned int tx_strlen(const char *s);
 char **tx_split_string(char *str);
 int tx_strncmp(char *str1, char *str2, unsigned int n);
 char *tx_readline(FILE *file_input);
@@ -51,5 +51,7 @@ int tx_display_envc(void);
 void tx_free_mem(char **argv, unsigned int number);
 void tx_mem_dealloc(char **token_array, char *path_value, char *input_line,
 char *command_path, int is_dynamic_path);
+int tx_display_envc(void);
+int tx_exit_shellc(void);
 
 #endif /* SHELL_H */

@@ -64,9 +64,9 @@ return (duplicate);
 *
 * Return: The length of the string.
 */
-int tx_strlen(char *s)
+unsigned int tx_strlen(const char *s)
 {
-int length = 0;
+unsigned int length = 0;
 
 for (; *s++;)
 length++;

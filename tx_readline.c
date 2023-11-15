@@ -12,7 +12,7 @@ char *input_line = NULL;
 size_t input_length = 0;
 ssize_t bytes_read = 0;
 
-bytes_read = tx_getline(&input_line, &input_length, file_input);
+bytes_read = getline(&input_line, &input_length, file_input);
 if (bytes_read == -1)
 {
 free(input_line);

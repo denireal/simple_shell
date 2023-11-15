@@ -1,5 +1,7 @@
 #include "shell.h"
 
+#define UNUSED(x) (void)(x)
+
 /**
 * tx_free_mem - Deallocate memory for a double pointer and its dynamically
 * created array of strings.
@@ -13,7 +15,7 @@ unsigned int ind = 0;
 
 if (argv != NULL)
 {
-while (ind < nnumber)
+while (ind < number)
 {
 if (argv[ind] != NULL)
 free(argv[ind]);
@@ -25,30 +27,34 @@ free(argv);
 
 /**
 * tx_mem_dealloc - Release allocated memory resources.
-* @token_array: Pointer to an array of strings.
+* @token_array: Pointer to an array of strings (unused).
 * @path_value: Pointer to a string holding the PATH value.
-* @input_line: Pointer to user input.
-* @command_path: Pointer to the complete path.
+* @input_line: Pointer to user input (unused).
+* @command_path: Pointer to the complete path (unused).
 * @is_dynamic_path: Indicates whether it is a dynamic path or not.
 * Return: void
 */
 void tx_mem_dealloc(char **token_array, char *path_value, char *input_line,
 char *command_path, int is_dynamic_path)
 {
-switch (is_dynamic_path)
+unsigned int i;
+void *pointers[3];
+unsigned int num_pointers = sizeof(pointers) / sizeof(pointers[0]);
+
+UNUSED(token_array);
+UNUSED(input_line);
+UNUSED(command_path);
+
+pointers[0] = NULL;
+pointers[1] = NULL;
+pointers[2] = NULL;
+
+for (i = 0; i < num_pointers; i++)
 {
-case 1:
-if (command_path != NULL)
-free(command_path);
-// fall through to free other pointers
-case 0:
-if (token_array != NULL)
-free(token_array);
-if (input_line != NULL)
-free(input_line);
-break;
-default:
-break;
+if ((i == (unsigned int)is_dynamic_path || is_dynamic_path == -1) && pointers[i] != NULL)
+{
+free(pointers[i]);
+}
 }
 
 if (path_value != NULL)

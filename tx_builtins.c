@@ -24,7 +24,7 @@ command_length = tx_strlen(argv[0]);
 num_builtins = tx_builtin_count(options);
 for (index = 0; index < num_builtins; index++)
 {
-if (_strcmp(argv[0], options[index].identity, command_length) == 0)
+if (tx_strcmp(argv[0], options[index].identity, command_length) == 0)
 {
 exit_status = (options[index].function)();
 return (exit_status);
