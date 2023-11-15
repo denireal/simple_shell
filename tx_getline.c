@@ -64,3 +64,47 @@ buffer_position += str_length(info->input_line);
 
 return (str_length(info->input_line));
 }
+
+/**
+* check_split_ops - Function checks and splits for the operators '&&' and '||'
+* @cmd_input: array of input commands
+* @cmd_index: index in cmd_input to be checked
+* @cmd_oper: array of logical operators for each previous command
+*
+* Return: index of the last command in cmd_input.
+*/
+int check_split_ops(char *cmd_input[], int cmd_index, char cmd_oper[])
+{
+char *temp = NULL;
+int char_index;
+
+/* This section check for the '&' character in the command line */
+for (char_index = 0; cmd_input[cmd_index] != NULL && cmd_input[cmd_index][char_index]; char_index++)
+{
+if (cmd_input[cmd_index][char_index] == '&' && cmd_input[cmd_index][char_index + 1] == '&')
+{
+/* This section split the line when '&&' is found */
+temp = cmd_input[cmd_index];
+cmd_input[cmd_index][char_index] = '\0';
+cmd_input[cmd_index] = str_dup(cmd_input[cmd_index]);
+cmd_input[cmd_index + 1] = str_dup(temp + char_index + 2);
+cmd_index++;
+cmd_oper[cmd_index] = '&';
+free(temp);
+char_index = 0;
+}
+if (cmd_input[cmd_index][char_index] == '|' && cmd_input[cmd_index][char_index + 1] == '|')
+{
+/* This section plit the line when '||' is found */
+temp = cmd_input[cmd_index];
+cmd_input[cmd_index][char_index] = '\0';
+cmd_input[cmd_index] = str_dup(cmd_input[cmd_index]);
+cmd_input[cmd_index + 1] = str_dup(temp + char_index + 2);
+cmd_index++;
+cmd_oper[cmd_index] = '|';
+free(temp);
+char_index = 0;
+}
+}
+return (cmd_index);
+}
