@@ -1,56 +1,56 @@
 #include "shell.h"
 
 /**
-* mem_dealloc_data - This frees fields at each iteration.
-* @info: A struct containing the program's info.
-* Return: void.
+* tx_free_mem - Deallocate memory for a double pointer and its dynamically
+* created array of strings.
+* @argv: Double pointer to an array of strings created dynamically using malloc.
+* @number: Number of strings in the array to be released.
+* Return: void
 */
-void mem_dealloc_data(progr_info *info)
+void tx_free_mem(char **argv, unsigned int number)
 {
-if (info->token_arr)
-mem_dealloc_array(info->token_arr);
-if (info->input_line)
-free(info->input_line);
-if (info->the_cmd)
-free(info->the_cmd);
+unsigned int ind = 0;
 
-info->input_line = NULL;
-info->the_cmd = NULL;
-info->token_arr = NULL;
+if (argv != NULL)
+{
+while (ind < nnumber)
+{
+if (argv[ind] != NULL)
+free(argv[ind]);
+ind++;
+}
+free(argv);
+}
 }
 
 /**
-* dealloc_all_data - This free all field of the data
-* @info: struct of the program's info
+* tx_mem_dealloc - Release allocated memory resources.
+* @token_array: Pointer to an array of strings.
+* @path_value: Pointer to a string holding the PATH value.
+* @input_line: Pointer to user input.
+* @command_path: Pointer to the complete path.
+* @is_dynamic_path: Indicates whether it is a dynamic path or not.
 * Return: void
 */
-void dealloc_all_data(progr_info *info)
+void tx_mem_dealloc(char **token_array, char *path_value, char *input_line,
+char *command_path, int is_dynamic_path)
 {
-if (info->fd != 0)
+switch (is_dynamic_path)
 {
-if (close(info->fd))
-perror(info->progr_name);
-}
-mem_dealloc_data(info);
-mem_dealloc_array(info->env_cpy);
-mem_dealloc_array(info->alias_values);
+case 1:
+if (command_path != NULL)
+free(command_path);
+// fall through to free other pointers
+case 0:
+if (token_array != NULL)
+free(token_array);
+if (input_line != NULL)
+free(input_line);
+break;
+default:
+break;
 }
 
-/**
-* mem_dealloc_array - this function frees each pointer of an array
-* @array_ptr: An array of pointers
-* Return: void
-*/
-void mem_dealloc_array(char **array_ptr)
-{
-int ind;
-
-if (array_ptr != NULL)
-{
-for (ind = 0; array_ptr[ind]; ind++)
-free(array_ptr[ind]);
-
-free(array_ptr);
-array_ptr = NULL;
-}
+if (path_value != NULL)
+free(path_value);
 }
