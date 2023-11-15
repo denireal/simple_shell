@@ -15,24 +15,24 @@ unsigned int current_var_size, index = 0;
 target = malloc(sizeof(char *) * (size + 1));
 if (target == NULL)
 {
-get_error(3);
+tx_show_error(3);
 return (NULL);
 }
 
 while (index < size)
 {
 current_var = origin[index];
-current_var_size = _strlen(current_var);
+current_var_size = tx_strlen(current_var);
 
 target[index] = malloc(sizeof(char) * (current_var_size + 1));
 if (target[index] == NULL)
 {
-get_error(3);
-free_doubleP(target, index);
+tx_show_error(3);
+tx_free_mem(target, index);
 return NULL;
 }
 
-_strcpy(target[index], current_var);
+tx_strcpy(target[index], current_var);
 index++;
 }
 
