@@ -10,7 +10,7 @@ void tx_prompt(void)
 {
 if (isatty(STDIN_FILENO))
 {
-write(STDOUT_FILENO, "TX-$ ", 2);
+write(STDOUT_FILENO, "TX-$ ", 5);
 }
 }
 
