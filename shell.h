@@ -9,11 +9,11 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-#define NO_FILE_ERR
-#define MEM_ALLOC_ERR
-#define FORK_PROC_ERR
 #define BUFF_CHUNKSIZE 1024
-#define DELIMS
+#define DELIMS " \t\r\n\a"
+#define FORK_PROC_ERR "Error in fork process\n"
+#define MEM_ALLOC_ERR "Memory allocation error\n"
+#define NO_FILE_ERR "File not found error\n"
 
 
 /**
@@ -37,7 +37,7 @@ char *tx_strcat(char *target, char *origin);
 char *tx_strdup(char *s);
 unsigned int tx_strlen(const char *s);
 char **tx_split_string(char *str);
-int tx_strncmp(char *str1, char *str2, unsigned int n);
+unsigned int tx_strncmp(const char *str1, const char *str2, unsigned int n);
 char *tx_readline(FILE *file_input);
 char *tx_strcpy(char *target, char *origin);
 int tx_strcmp(char *source_str, char *comparison_str, unsigned int length);

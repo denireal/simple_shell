@@ -82,7 +82,7 @@ return (length);
 *
 * Return: -1 if strings are not equal, 1 otherwise.
 */
-int tx_strncmp(char *str1, char *str2, unsigned int n)
+unsigned int tx_strncmp(const char *str1, const char *str2, unsigned int n)
 {
 unsigned int i;
 
