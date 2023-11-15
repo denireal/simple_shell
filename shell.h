@@ -1,143 +1,55 @@
-#ifndef SHELL_H_INCLUDED
-#define SHELL_H_INCLUDED
+#ifndef SHELL_H
+#define SHELL_H
 
 #include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-#include <fcntl.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
-#include <stddef.h>
-#include <errno.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
-#include "helpers.h"
+#define NO_FILE_ERR
+#define MEM_ALLOC_ERR
+#define FORK_PROC_ERR
+#define BUFF_CHUNKSIZE 1024
+#define DELIMS
 
-/* ======= Handling structures ======= */
-/**
-* struct info- struct for the program's information
-* @progr_name: the name of the progr executable
-* @input_line: pointer to the input read for tx_getline
-* @the_cmd: pointer to the first command typed by the user
-* @execution_ctr: number of excecuted comands
-* @fd: file descriptor to the input of commands
-* @token_arr: pointer to array of tokenized input
-* @env_cpy: copy of the environ
-* @alias_values: array of pointers with aliases.
-*/
-typedef struct shell_info
-{
-char *progr_name;
-char *input_line;
-char *the_cmd;
-int execution_ctr;
-int fd;
-char **token_arr;
-char **env_cpy;
-char **alias_values;
-} progr_info;
 
 /**
-* struct builtins - struct for the builtins
-* @builtin: the name of the builtin
-* @function: the associated function to be called for each builtin
+* struct builtin_array - Array of builtin functions,
+* @identity: name of builtin
+* @function: pointer to function
 */
-typedef struct builtins
+
+typedef struct builtin_array
 {
-char *builtin;
-int (*function)(progr_info *info);
-} builtins;
+	char *identity;
+	int (*function)(void);
+} builtin_array;
 
-/* Read one line of the standar input*/
-int tx_getline(progr_info *info);
 
-/* split the each line for the logical operators if it exist */
-int check_split_ops(char *cmd_input[], int cmd_index, char cmd_oper[]);
 
-void var_exps(progr_info *info);
+extern char **environ;
 
-void alias_exps(progr_info *info);
+void tx_show_error(int err_code);
+char *tx_strcat(char *target, char *origin);
+char *tx_strdup(char *s);
+int tx_strlen(char *s);
+char **tx_split_string(char *str);
+int tx_strncmp(char *str1, char *str2, unsigned int n);
+char *tx_readline(FILE *file_input);
+char *tx_strcpy(char *target, char *origin);
+int tx_strcmp(char *source_str, char *comparison_str, unsigned int length);
+int tx_exec_path(char *command_path, char **argv);
+char *tx_search_direc(char *command, char *command_path, char *env_path);
+char **tx_envcpy(char **target, char **origin, unsigned int size);
+char *tx_getenv(const char *string);
+int tx_builtin_exec(char **argv);
+int tx_builtin_count(builtin_array options[]);
+int tx_display_envc(void);
+void tx_free_mem(char **argv, unsigned int number);
+void tx_mem_dealloc(char **token_array, char *path_value, char *input_line,
+char *command_path, int is_dynamic_path);
 
-int alias_append(char *unit_buff, char *str_copy);
-
-void tx_tokenizer(progr_info *info);
-
-char *_strtok(char *input_string, char *delimiters);
-
-void tx_newline(int opr UNUSED);
-
-void initialize_struct(progr_info *info, int argc, char *argv[], char **env);
-
-void show_prompt(char *tx_prompt, progr_info *info);
-
-int inspect_file(char *full_path);
-
-int find_codepath(progr_info *info);
-
-char **tokenize_path(progr_info *info);
-
-int _imprimit(char *char_arr);
-
-int error_inprimo(int code_err, progr_info *info);
-
-void mem_dealloc_data(progr_info *info);
-
-void dealloc_all_data(progr_info *info);
-
-void mem_dealloc_array(char **array_ptr);
-
-int execute(progr_info *info);
-
-char *getenv_key(char *env_var, progr_info *info);
-
-int setenv_key(char *env_var, char *value, progr_info *info);
-
-int removeenv_key(char *env_var, progr_info *info);
-
-void _imprimit_env(progr_info *info);
-
-int search_exec_builtins(progr_info *info);
-
-int exit_builtin(progr_info *info);
-
-int cdir_builtin(progr_info *info);
-
-int present_directory(progr_info *info, char *curr_dir);
-
-int help_msg_builtin(progr_info *info);
-
-int alias_builtin(progr_info *info);
-
-int show_env(progr_info *info);
-
-int setenv_var(progr_info *info);
-
-int unsetenv_var(progr_info *info);
-
-void long_string(long num, char *buff_string, int base_num);
-
-int _atoi(char *str);
-
-int count_characters(char *ptr_string, char *chars);
-
-int str_length(char *s);
-
-char *str_dup(char *s);
-
-int str_compare(char *first_str, char *second_str, int number_char);
-
-char *str_concat(char *first_str, char *second_str);
-
-void str_reverse(char *s);
-
-int write_alias(progr_info *info, char *alias_name);
-
-char *fetch_alias(progr_info *info, char *alias_name);
-
-int manage_alias(char *alias_string, progr_info *info);
-
-int _imprimo(char *char_arr);
-
-#endif /* SHELL_H_INCLUDED */
+#endif /* SHELL_H */
