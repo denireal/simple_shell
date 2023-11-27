@@ -19,7 +19,7 @@ return (0);
 
 ustatus = str_to_int(infosh->arg_s[1]);
 
-if (!_isdigit(infosh->arg_s[1]) || _strlen(infosh->arg_s[1]) > 10 ||
+if (!_isnumber(infosh->arg_s[1]) || _strlen(infosh->arg_s[1]) > 10 ||
 ustatus > INT_MAX)
 {
 /* Invalid argument, print an error message */
