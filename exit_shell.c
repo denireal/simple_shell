@@ -1,41 +1,37 @@
 #include "shell.h"
 
 /**
-* exit_shell - Handles the exit command in a shell program.
-* @infosh: Pointer to the shell_info structure.
+* exit_shell - Exits the shell with a specified status.
+* @infosh: Relevant data (status and args).
 *
 * Return: 0 on success, 1 on failure.
 */
 int exit_shell(shell_info *infosh)
 {
 unsigned int ustatus;
-int is_non_negative_integer;
-int exit_status_str_len;
-int exceeds_max_exit_status;
+int status_code = 0;
 
-/* Check if an exit status argument is provided */
-if (infosh->arg_s[1] != NULL)
+if (infosh->arg_s[1] == NULL)
 {
-/* Convert the argument to an integer */
+/* No argument provided, exit with default status (0) */
+return (0);
+}
+
 ustatus = str_to_int(infosh->arg_s[1]);
-/* Check if the argument is a non-negative integer */
-is_non_negative_integer = _isnumber(infosh->arg_s[1]);
-/* Get the length of the exit status string */
-exit_status_str_len = _strlen(infosh->arg_s[1]);
-/* Check if the exit status exceeds the maximum allowed value */
-exceeds_max_exit_status = ustatus > MAX_EXIT_STATUS_VALUE;
 
-/* Handle invalid exit status arguments */
-if (!is_non_negative_integer || exit_status_str_len > MAX_EXIT_STATUS_LEN ||
-exceeds_max_exit_status)
+if (!_isdigit(infosh->arg_s[1]) || _strlen(infosh->arg_s[1]) > 10 ||
+ustatus > INT_MAX)
 {
-get_error(infosh, 2); /* Consider providing more detailed error messages */
-infosh->status = 2;   /* Indicate an error status */
-return (1);           /* Failure */
+/* Invalid argument, print an error message */
+get_error(infosh, 2);
+infosh->status = 2;
+status_code = 1;
+}
+else
+{
+/* Valid argument, set the exit status */
+infosh->status = ustatus % 256;
 }
 
-infosh->status = ustatus % (MAX_EXIT_STATUS_VALUE + 1);
-}
-
-return (0); /* Success */
+return (status_code);
 }

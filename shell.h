@@ -12,9 +12,6 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-#define MAX_EXIT_STATUS_LEN 10
-#define MAX_EXIT_STATUS_VALUE 255
-
 #define BUFF_CHUNKSIZE 1024
 #define TOKEN_SIZE 128
 #define DELIMITER " \t\r\n\a"
