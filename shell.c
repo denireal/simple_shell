@@ -1,66 +1,74 @@
 #include "shell.h"
 
 /**
-* tx_prompt - checks for interactive mode and write prompt
-* to standard output.
-* Return: void
+* free_alloc_mem - Frees allocated memory in the shell_info structure.
+* @infosh: Pointer to the shell_info structure.
 */
+void free_alloc_mem(shell_info *infosh)
+{
+unsigned int i;
 
-void tx_prompt(void)
+for (i = 0; infosh->_envvar[i]; i++)
 {
-if (isatty(STDIN_FILENO))
-{
-write(STDOUT_FILENO, "TX-$ ", 5);
+free(infosh->_envvar[i]);
 }
+
+free(infosh->_envvar);
+free(infosh->pid);
+}
+
+/**
+* init_shell - Initializes shell_info structure with data.
+* @infosh: Pointer to the shell_info structure.
+* @arg_v: Command-line arguments.
+*/
+void init_shell(shell_info *infosh, char **arg_v)
+{
+unsigned int i;
+
+infosh->arg_v = arg_v;
+infosh->input_line = NULL;
+infosh->arg_s = NULL;
+infosh->status = 0;
+infosh->counter = 1;
+
+/* Count the number of environment variables */
+for (i = 0; environ[i]; i++)
+;
+
+/* Allocate memory for environment variables */
+infosh->_envvar = malloc(sizeof(char *) * (i + 1));
+
+/* Copy environment variables to infosh->_envvar */
+for (i = 0; environ[i]; i++)
+{
+infosh->_envvar[i] = _strdup(environ[i]);
+}
+
+infosh->_envvar[i] = NULL; /* Terminate the array with NULL */
+infosh->pid = int_to_str(getpid());
 }
 
 /**
 * main - Entry point of the shell program.
-* @argc: argument count.
-* @argv: pointer to an array of strings.
-* Return: 0 always
+* @arg_c: Number of command-line arguments.
+* @arg_v: Array of command-line argument strings.
+* Return: Exit status of the shell.
 */
-
-int main(int argc, char **argv)
+int main(int arg_c, char **arg_v)
 {
-char *env_path, *full_path, *line_input;
-int cmd_status, exec_status, flag = 0;
-(void)argc;
+shell_info infosh;
+(void)arg_c; /* Avoid unused variable warning */
 
-env_path = full_path = line_input = NULL;
-while (1)
-{
-tx_prompt();
-line_input = tx_readline(stdin);
-if (tx_strcmp(line_input, "\n", 1) == 0)
-{	free(line_input);
-continue;
-}
-argv = tx_split_string(line_input);
-if (argv[0] == NULL)
-continue;
-cmd_status = tx_builtin_exec(argv);
-if (cmd_status == 0 || cmd_status == -1)
-{	free(argv);
-free(line_input);
-}
-if (cmd_status == 0)
-continue;
-if (cmd_status == -1)
-exit(0);
-env_path = tx_getenv("PATH");
-full_path = tx_search_direc(argv[0], full_path, env_path);
-if (full_path == NULL)
-{
-full_path = argv[0];
-}
-else
-flag = 1;
+signal(SIGINT, handle_interrupt_signal); /* Assuming get_sigint is defined somewhere */
 
-exec_status = tx_exec_path(full_path, argv);
-if (exec_status == -1)
-tx_show_error(2);
-tx_mem_dealloc(argv, env_path, line_input, full_path, flag);
-}
-return (0);
-}
+init_shell(&infosh, arg_v);
+exec_loop(&infosh); /* Assuming shell_loop is defined somewhere */
+
+free_alloc_mem(&infosh);
+
+if (infosh.status < 0)
+return (255);
+
+return (infosh.status);
+}	
